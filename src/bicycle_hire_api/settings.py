@@ -11,7 +11,7 @@ SECRET_KEY = config.django.secret_key
 
 DEBUG = config.django.debug
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',

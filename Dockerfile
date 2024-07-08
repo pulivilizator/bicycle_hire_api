@@ -12,7 +12,8 @@ RUN apt-get update \
 
 WORKDIR /app
 
-COPY . .
+COPY src .
+COPY pyproject.toml poetry.lock ./
 
 RUN poetry install --no-root --no-ansi
 
@@ -27,4 +28,4 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /app
 
 COPY --from=poetry_venv /app/.venv ./.venv
-COPY . .
+COPY src .

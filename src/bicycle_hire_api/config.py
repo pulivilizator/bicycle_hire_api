@@ -66,7 +66,7 @@ def get_config(path: str | None = None) -> Config:
             port=env('EMAIL_PORT'),
         ),
         celery=Celery(
-            celery_broker_url=env('CELERY_BROKER_URL'),
-            celery_result_backend=env('CELERY_RESULT_BACKEND'),
+            celery_broker_url=f'redis://{env('CELERY_REDIS_HOST')}:{env('CELERY_REDIS_PORT')}/{env('CELERY_REDIS_DB')}',
+            celery_result_backend=f'redis://{env('CELERY_REDIS_HOST')}{env('CELERY_REDIS_PORT')}/{env('CELERY_REDIS_DB')}',
         ),
     )
