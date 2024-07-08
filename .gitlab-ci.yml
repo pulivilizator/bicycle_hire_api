@@ -42,7 +42,6 @@ test:
   image:
     name: python:3.12.3
   variables:
-    DJANGO_SETTINGS_MODULE: "${DJANGO_SETTINGS_MODULE}"
     DB_PROD_NAME: "${DB_PROD_NAME}"
     DB_TEST_NAME: ${DB_TEST_NAME}"
     DB_HOST: ${DB_HOST}"
@@ -50,7 +49,8 @@ test:
     DB_USER: ${DB_USER}"
     DB_PASSWORD: ${DB_PASSWORD}"
   script:
-    - pip install -r requirements.txt
+    - pip install poetry
+    - poetry install
     - cd src
     - pytest --maxfail=1 --disable-warnings
   only:

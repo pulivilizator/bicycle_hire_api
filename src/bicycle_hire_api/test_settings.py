@@ -2,12 +2,12 @@ from pathlib import Path
 
 from django.utils import timezone
 
-from .config import get_config
+from .config import get_test_config
 
-config = get_config()
+config = get_test_config()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config.django.secret_key
+SECRET_KEY = config.secret_key
 
 INSTALLED_APPS = [
     'django.contrib.admin',

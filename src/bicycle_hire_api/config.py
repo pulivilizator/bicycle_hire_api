@@ -72,3 +72,25 @@ def get_config(path: str | None = None) -> Config:
             celery_result_backend=f'redis://{env('CELERY_REDIS_HOST')}{env('CELERY_REDIS_PORT')}/{env('CELERY_REDIS_DB')}',
         ),
     )
+
+
+@dataclass
+class TestConfig:
+    database: Database
+    secret_key: str
+
+
+def get_test_config(path: str | None = None):
+    env = Env()
+    env.read_env(path)
+    return TestConfig(
+        database=Database(
+            prod_name=env('DB_PROD_NAME'),
+            test_name=env('DB_TEST_NAME'),
+            host=env('DB_HOST'),
+            port=env.int('DB_PORT'),
+            user=env('DB_USER'),
+            password=env('DB_PASSWORD'),
+        ),
+        secret_key=env('DJANGO_SECRET_KEY')
+    )
