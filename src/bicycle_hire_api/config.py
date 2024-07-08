@@ -74,27 +74,3 @@ def get_config(path: str | None = None) -> Config:
         ),
         test=env.bool('TEST', False)
     )
-
-
-@dataclass
-class TestConfig:
-    database: Database
-    secret_key: str
-    test: bool
-
-
-def get_test_config(path: str | None = None):
-    env = Env()
-    env.read_env(path)
-    return TestConfig(
-        database=Database(
-            prod_name=env('DB_PROD_NAME'),
-            test_name=env('DB_TEST_NAME'),
-            host=env('DB_HOST'),
-            port=env('DB_PORT'),
-            user=env('DB_USER'),
-            password=env('DB_PASSWORD'),
-        ),
-        secret_key=env('DJANGO_SECRET_KEY'),
-        test=env.bool('TEST', False)
-    )
