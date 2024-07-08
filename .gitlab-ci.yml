@@ -51,7 +51,6 @@ test:
   script:
     - pip install poetry
     - poetry install
-    - cd src
     - pytest --maxfail=1 --disable-warnings
   only:
     - merge_requests
