@@ -15,4 +15,4 @@ WORKDIR /app
 COPY . .
 
 RUN poetry install --no-root --no-ansi
-CMD ["sh", "-c", "source $(poetry env info --path)/bin/activate && cd src && pytest --maxfail=1 --disable-warnings"]
+CMD ["sh", "-c", ". $(poetry env info --path)/bin/activate && cd src && pytest --maxfail=1 --disable-warnings"]
