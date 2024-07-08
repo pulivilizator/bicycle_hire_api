@@ -11,14 +11,6 @@ build-only-MR:
   image:
     name: gcr.io/kaniko-project/executor:v1.9.2-debug
     entrypoint: [ "" ]
-  variables:
-    DJANGO_SETTINGS_MODULE: "${DJANGO_SETTINGS_MODULE}"
-    DB_PROD_NAME: "${DB_PROD_NAME}"
-    DB_TEST_NAME: ${DB_TEST_NAME}"
-    DB_HOST: ${DB_HOST}"
-    DB_PORT: ${DB_PORT}"
-    DB_USER: ${DB_USER}"
-    DB_PASSWORD: ${DB_PASSWORD}"
   script:
     - /kaniko/executor
        --context "${CI_PROJECT_DIR}"
@@ -49,6 +41,14 @@ test:
     - docker
   image:
     name: python:3.12.3
+  variables:
+    DJANGO_SETTINGS_MODULE: "${DJANGO_SETTINGS_MODULE}"
+    DB_PROD_NAME: "${DB_PROD_NAME}"
+    DB_TEST_NAME: ${DB_TEST_NAME}"
+    DB_HOST: ${DB_HOST}"
+    DB_PORT: ${DB_PORT}"
+    DB_USER: ${DB_USER}"
+    DB_PASSWORD: ${DB_PASSWORD}"
   script:
     - pip install -r requirements.txt
     - cd src
