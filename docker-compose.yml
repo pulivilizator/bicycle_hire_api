@@ -7,6 +7,27 @@ services:
       context: .
       dockerfile: Dockerfile
     command: gunicorn bicycle_hire_api.wsgi:application --bind 0.0.0.0:8000
+    environment:
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - DEBUG_MODE=${DEBUG_MODE}
+
+      - DB_PROD_NAME=${DB_PROD_NAME}
+      - DB_TEST_NAME=${DB_TEST_NAME}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+
+      - CELERY_REDIS_HOST=${CELERY_REDIS_HOST}
+      - CELERY_REDIS_PORT=${CELERY_REDIS_PORT}
+      - CELERY_REDIS_DB=${CELERY_REDIS_DB}
+
+      - EMAIL_HOST=${EMAIL_HOST}
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+      - EMAIL_PORT=${EMAIL_PORT}
     env_file:
       - .env
     restart: always
