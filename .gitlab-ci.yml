@@ -42,18 +42,14 @@ test:
   image:
     name: python:3.12.3
   script:
-    - pip install poetry
-    - poetry install
-    - echo "DB_TEST_NAME $DB_TEST_NAME"
-    - echo $DB_HOST
-    - echo "DB_PORT ${DB_PORT}"
-    - echo "DB_USER ${DB_USER}"
-    - echo "DB_PASSWORD ${DB_PASSWORD}"
-    - poetry run pytest --maxfail=1 --disable-warnings
+     - pip install poetry
+     - poetry install
+     - source $(poetry env info --path)/bin/activate
+     - cd src
+     - pytest --maxfail=1 --disable-warnings
   only:
     - merge_requests
     - main
-
 
 deploy:
    stage: deploy
