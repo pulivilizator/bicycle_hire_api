@@ -60,8 +60,8 @@ services:
     build: ./nginx
     restart: always
     volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      - /certbot/conf:/etc/letsencrypt
+      - /certbot/www:/var/www/certbot
     ports:
       - "80:80"
       - "443:443"
@@ -74,9 +74,9 @@ services:
   certbot:
     image: certbot/certbot
     volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    command: certonly --webroot --webroot-path=/var/www/certbot/ --email mail@gmail.com --agree-tos --no-eff-email -d domain.com -d www.domain.com
+      - /certbot/conf:/etc/letsencrypt
+      - /certbot/www:/var/www/certbot
+    command: certonly --webroot --webroot-path=/var/www/certbot/ --email dimaddf21@gmail.com --agree-tos --no-eff-email -d chervanev.ru
     depends_on:
       nginx:
         condition: service_started
