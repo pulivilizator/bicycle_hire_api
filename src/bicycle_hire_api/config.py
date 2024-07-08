@@ -17,6 +17,7 @@ class Django:
     secret_key: str
     debug: bool
     django_settings_module: str
+    allowed_hosts: list
 
 
 @dataclass
@@ -57,6 +58,7 @@ def get_config(path: str | None = None) -> Config:
         django=Django(
             secret_key=env('DJANGO_SECRET_KEY'),
             django_settings_module=env('DJANGO_SETTINGS_MODULE'),
+            allowed_hosts=env.list('ALLOWED_HOSTS', delimiter=' '),
             debug=env.bool('DEBUG_MODE', default=False),
         ),
         smtp=SMTP(
