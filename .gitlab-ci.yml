@@ -42,6 +42,7 @@ test:
   image:
     name: python:3.12.3
   variables:
+    DJANGO_SECRET_KEY: "${DJANGO_SECRET_KEY}"
     DB_PROD_NAME: "${DB_PROD_NAME}"
     DB_TEST_NAME: ${DB_TEST_NAME}"
     DB_HOST: ${DB_HOST}"
