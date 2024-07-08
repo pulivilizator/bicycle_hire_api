@@ -37,16 +37,16 @@ build:
 
 test:
   stage: test
-  tags:
-    - docker
-  image:
-    name: python:3.12.3
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+  before_script:
+    - docker info
+    - docker build -t tests -f ./Dockerfile.test
   script:
-     - pip install poetry
-     - poetry install
-     - source $(poetry env info --path)/bin/activate
-     - cd src
-     - pytest --maxfail=1 --disable-warnings
+    - docker run -e DB_PROD_NAME=$DB_PROD_NAME -e DB_TEST_NAME=$DB_TEST_NAME -e DB_PASSWORD=$DB_PASSWORD -e DB_HOST=$DB_HOST -e DB_USER=$DB_USER -e DB_PORT=$DB_PORT tests
   only:
     - merge_requests
     - main
