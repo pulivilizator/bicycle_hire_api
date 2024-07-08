@@ -1,4 +1,4 @@
-FROM python:3.12.3-slim-bookworm as poetry_venv
+FROM python:3.12.3-bookworm
 
 ENV POETRY_HOME="/opt/poetry/" \
     POETRY_VIRTUALENVS_IN_PROJECT=1 \
