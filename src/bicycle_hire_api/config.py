@@ -88,7 +88,7 @@ def get_test_config(path: str | None = None):
             prod_name=env('DB_PROD_NAME'),
             test_name=env('DB_TEST_NAME'),
             host=env('DB_HOST'),
-            port=env.int('DB_PORT'),
+            port=env('DB_PORT'),
             user=env('DB_USER'),
             password=env('DB_PASSWORD'),
         ),
