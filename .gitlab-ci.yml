@@ -13,6 +13,7 @@ build-only-MR:
     entrypoint: [ "" ]
   variables:
     DJANGO_SETTINGS_MODULE: "${DJANGO_SETTINGS_MODULE}"
+    DB_PROD_NAME: "${DB_PROD_NAME}"
     DB_TEST_NAME: ${DB_TEST_NAME}"
     DB_HOST: ${DB_HOST}"
     DB_PORT: ${DB_PORT}"
