@@ -42,17 +42,23 @@ test:
   image:
     name: python:3.12.3
   variables:
-    DJANGO_SECRET_KEY: "${DJANGO_SECRET_KEY}"
-    DB_PROD_NAME: "${DB_PROD_NAME}"
-    DB_TEST_NAME: ${DB_TEST_NAME}"
-    DB_HOST: ${DB_HOST}"
-    DB_PORT: ${DB_PORT}"
-    DB_USER: ${DB_USER}"
-    DB_PASSWORD: ${DB_PASSWORD}"
+    DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+    DB_PROD_NAME: ${DB_PROD_NAME}
+    DB_TEST_NAME: ${DB_TEST_NAME}
+    DB_HOST: ${DB_HOST}
+    DB_PORT: ${DB_PORT}
+    DB_USER: ${DB_USER}
+    DB_PASSWORD: ${DB_PASSWORD}
   script:
      - pip install poetry
      - poetry install
      - source $(poetry env info --path)/bin/activate
+     - echo ${DB_TEST_NAME}
+     - echo ${DB_HOST}
+     - echo ${DB_PORT}
+     - echo ${DB_USER}
+     - echo ${DB_PASSWORD}
+
      - cd src
      - pytest --maxfail=1 --disable-warnings
   only:
