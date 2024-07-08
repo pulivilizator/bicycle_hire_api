@@ -1,4 +1,5 @@
 import pytest
+from unittest.mock import patch
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework import status
@@ -30,11 +31,12 @@ def test_rental_return(api_client, user_factory, bicycle_factory, rental_factory
     bicycle = bicycle_factory(available=False)
     rental = rental_factory(user=user, bicycle=bicycle, end_time=None, is_paid=False)
     api_client.force_authenticate(user=user)
-    response = api_client.patch(reverse('rentals:rental-return-bicycle'))
-    assert response.status_code == status.HTTP_200_OK
-    rental.refresh_from_db()
-    assert rental.end_time is not None
-    assert rental.total_price is not None
+    with patch('apps.bicycles.views.send_rental_ended_mail.delay') as mock_send_rental_ended_mail:
+        response = api_client.patch(reverse('rentals:rental-return-bicycle'))
+        assert response.status_code == status.HTTP_200_OK
+        rental.refresh_from_db()
+        assert rental.end_time is not None
+        assert rental.total_price is not None
     assert Bicycle.objects.get(id=bicycle.id).available
 
 

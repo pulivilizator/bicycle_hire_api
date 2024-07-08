@@ -1,5 +1,6 @@
 stages:
  - build
+ - test
  - deploy
 
 
@@ -34,6 +35,19 @@ build:
   only:
     - main
 
+test:
+  stage: test
+  tags:
+    - docker
+  image:
+    name: python:3.12.3
+  script:
+    - pip install -r requirements.txt
+    - cd src
+    - pytest --maxfail=1 --disable-warnings
+  only:
+    - merge_requests
+    - main
 
 deploy:
    stage: deploy

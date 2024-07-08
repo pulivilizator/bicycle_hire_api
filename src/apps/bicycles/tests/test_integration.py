@@ -1,9 +1,10 @@
 import pytest
+from unittest.mock import patch
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework import status
 
-from apps.bicycles.models import  Rental
+from apps.bicycles.models import Rental
 
 
 @pytest.mark.django_db
@@ -20,11 +21,18 @@ def test_full_rental_cycle(api_client, user_factory, bicycle_factory):
     bicycle.refresh_from_db()
     assert not bicycle.available
 
-    response = api_client.patch(reverse('rentals:rental-return-bicycle'))
-    assert response.status_code == status.HTTP_200_OK
-    rental = Rental.objects.get(id=rental_id)
-    assert rental.end_time is not None
-    assert rental.total_price is not None
+    with patch('apps.bicycles.views.send_rental_ended_mail.delay') as mock_send_rental_ended_mail:
+        response = api_client.patch(reverse('rentals:rental-return-bicycle'))
+        assert response.status_code == status.HTTP_200_OK
+        rental = Rental.objects.get(id=rental_id)
+        assert rental.end_time is not None
+        assert rental.total_price is not None
+
+    # response = api_client.patch(reverse('rentals:rental-return-bicycle'))
+    # assert response.status_code == status.HTTP_200_OK
+    # rental = Rental.objects.get(id=rental_id)
+    # assert rental.end_time is not None
+    # assert rental.total_price is not None
 
     bicycle.refresh_from_db()
     assert bicycle.available
