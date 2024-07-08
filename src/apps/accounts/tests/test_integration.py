@@ -7,7 +7,7 @@ from rest_framework import status
 @pytest.mark.django_db
 def test_full_registration_cycle(api_client):
     data = {
-        'email': 'test@example.com',
+        'email': 'testuser@example.com',
         'name': 'Test',
         'surname': 'User',
         'password': 'Password123!'

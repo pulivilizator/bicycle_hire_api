@@ -40,6 +40,7 @@ class Config:
     django: Django
     smtp: SMTP
     celery: Celery
+    test: bool
 
 
 def get_config(path: str | None = None) -> Config:
@@ -71,6 +72,7 @@ def get_config(path: str | None = None) -> Config:
             celery_broker_url=f'redis://{env('CELERY_REDIS_HOST')}:{env('CELERY_REDIS_PORT')}/{env('CELERY_REDIS_DB')}',
             celery_result_backend=f'redis://{env('CELERY_REDIS_HOST')}{env('CELERY_REDIS_PORT')}/{env('CELERY_REDIS_DB')}',
         ),
+        test=env.bool('TEST', False)
     )
 
 
@@ -78,6 +80,7 @@ def get_config(path: str | None = None) -> Config:
 class TestConfig:
     database: Database
     secret_key: str
+    test: bool
 
 
 def get_test_config(path: str | None = None):
@@ -92,5 +95,6 @@ def get_test_config(path: str | None = None):
             user=env('DB_USER'),
             password=env('DB_PASSWORD'),
         ),
-        secret_key=env('DJANGO_SECRET_KEY')
+        secret_key=env('DJANGO_SECRET_KEY'),
+        test=env.bool('TEST', False)
     )

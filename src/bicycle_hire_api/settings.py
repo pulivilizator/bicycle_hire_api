@@ -65,7 +65,7 @@ WSGI_APPLICATION = 'bicycle_hire_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config.database.prod_name,
+        'NAME': config.database.prod_name if not config.test else config.database.test_name,
         'USER': config.database.user,
         'PASSWORD': config.database.password,
         'HOST': config.database.host,
