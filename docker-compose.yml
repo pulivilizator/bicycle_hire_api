@@ -28,8 +28,8 @@ services:
       - EMAIL_HOST_USER=${EMAIL_HOST_USER}
       - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
       - EMAIL_PORT=${EMAIL_PORT}
-    env_file:
-      - .env
+#    env_file:
+#      - .env
     restart: always
     depends_on:
       redis:
@@ -40,8 +40,6 @@ services:
   app_celery:
     <<: *bicycle
     command: celery -A bicycle_hire_api worker --loglevel=info
-    env_file:
-      - .env
     depends_on:
       redis:
         condition: service_healthy
