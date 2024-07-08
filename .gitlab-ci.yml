@@ -44,7 +44,7 @@ test:
     DOCKER_DRIVER: overlay2
   before_script:
     - docker info
-    - docker build -t tests -f ./Dockerfile.test
+    - docker buildx build -t tests -f ./Dockerfile.test .
   script:
     - docker run -e DB_PROD_NAME=$DB_PROD_NAME -e DB_TEST_NAME=$DB_TEST_NAME -e DB_PASSWORD=$DB_PASSWORD -e DB_HOST=$DB_HOST -e DB_USER=$DB_USER -e DB_PORT=$DB_PORT tests
   only:
