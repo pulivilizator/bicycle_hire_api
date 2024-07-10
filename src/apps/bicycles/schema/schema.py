@@ -100,7 +100,7 @@ rental_history_extend_schema = extend_schema(
 
 rental_create_extend_schema = extend_schema(
     summary='Новая аренда велосипеда',
-    description='Создание новой аренды велосипеда\n\nДля аренды необходима авторизация',
+    description='Создание новой аренды велосипеда\n\nДля аренды необходима авторизация и id арендуемого велосипеда',
     request=serializers.CreateRentalSchemaSerializer,
     responses={
         status.HTTP_201_CREATED: RentalSerializer,
