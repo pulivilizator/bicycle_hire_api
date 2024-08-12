@@ -123,8 +123,8 @@ SPECTACULAR_SETTINGS = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timezone.timedelta(days=30),
-    'REFRESH_TOKEN_LIFETIME': timezone.timedelta(days=60),
+    'ACCESS_TOKEN_LIFETIME': timezone.timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME': timezone.timedelta(days=15),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACK_LIST_AFTER-ROTATION': True,
 }
